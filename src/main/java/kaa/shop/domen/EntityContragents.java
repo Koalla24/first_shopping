@@ -18,6 +18,7 @@ public class EntityContragents {
     private String Name;
 
     @OneToMany(mappedBy = "Contragent")
+    @JoinColumn(name = "id_sales_header", referencedColumnName = "id")
     private List<EntitySalesHeader> SalesHeader;
 
     public EntityContragents() {
