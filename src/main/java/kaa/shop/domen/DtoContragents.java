@@ -18,7 +18,6 @@ public class DtoContragents implements CrudRepository<EntityContragents, long> {
         this.rep = rep;
     }
 
-    @Transactional
     @Override
     public void delete(EntityContragents contr){
         rep.delete( contr);
