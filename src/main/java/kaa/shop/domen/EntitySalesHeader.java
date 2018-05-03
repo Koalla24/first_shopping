@@ -1,4 +1,4 @@
-package kaa.shop.domen;
+package kaa.shop.Domen;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
