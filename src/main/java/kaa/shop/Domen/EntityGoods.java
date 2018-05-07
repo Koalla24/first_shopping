@@ -18,7 +18,7 @@ public class EntityGoods {
     private String Name;
 
     @OneToMany(mappedBy = "Good")
-    @JoinColumn(name = "id_good", referencedColumnName = "id")
+    //@JoinColumn(name = "id_good", referencedColumnName = "id")
     private List<EntitySalesTable> SalesTable;
 
     public EntityGoods() {

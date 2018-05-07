@@ -23,7 +23,7 @@ public class EntitySalesHeader {
     private String NumDoc;
 
     @OneToMany(mappedBy = "SalesHeader")
-    @JoinColumn(name = "id_sales_header", referencedColumnName = "id")
+    //@JoinColumn(name = "id_sales_header", referencedColumnName = "id")
     private List<EntitySalesTable> SalesTable;
 
     @NotNull

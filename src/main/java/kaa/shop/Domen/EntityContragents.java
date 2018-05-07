@@ -18,7 +18,7 @@ public class EntityContragents {
     private String Name;
 
     @OneToMany(mappedBy = "Contragent")
-    @JoinColumn(name = "id_sales_header", referencedColumnName = "id")
+    //@JoinColumn(name = "id_sales_header", referencedColumnName = "id")
     private List<EntitySalesHeader> SalesHeader;
 
     public EntityContragents() {
@@ -50,5 +50,14 @@ public class EntityContragents {
 
     public void setSalesHeader(List<EntitySalesHeader> salesHeader) {
         SalesHeader = salesHeader;
+    }
+
+    @Override
+    public String toString() {
+        return "EntityContragents{" +
+                "id=" + id +
+                ", Name='" + Name + '\'' +
+                ", SalesHeader=" + SalesHeader +
+                '}';
     }
 }

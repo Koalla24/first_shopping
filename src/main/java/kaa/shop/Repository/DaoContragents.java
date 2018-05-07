@@ -26,4 +26,5 @@ public interface DaoContragents extends CrudRepository<EntityContragents, Long> 
 
     @Query("SELECT p FROM EntityContragents p WHERE 1=1 AND (:id is null OR p.id = :id) AND (:Name IS NULL OR p.Name LIKE %:Name%)")
     public List<EntityContragents> findByAny(@Param("id") Long pId, @Param("Name") String pName);
+
 }
