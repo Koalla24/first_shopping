@@ -9,7 +9,7 @@ import java.util.List;
 public class EntityContragents {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -18,7 +18,7 @@ public class EntityContragents {
     private String Name;
 
     @OneToMany(mappedBy = "Contragent")
-    //@JoinColumn(name = "id_sales_header", referencedColumnName = "id")
+    //@JoinColumn(name = "Contragent" /*, referencedColumnName = "Contragent"*/)
     private List<EntitySalesHeader> SalesHeader;
 
     public EntityContragents() {

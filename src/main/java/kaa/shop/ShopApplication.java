@@ -1,45 +1,50 @@
 package kaa.shop;
 
-import kaa.shop.Domen.EntityContragents;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
 public class ShopApplication {
 
+	private static String SQL_SELECT_ANY = "SELECT p FROM EntityContragents p WHERE 1=1 AND (:id is null OR p.id = :id) AND (:Name is null OR p.Name LIKE :Name)";
+
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("first_shop");
-		EntityManager entM = entityManagerFactory.createEntityManager();
+		EntityManager entManager = Persistence.createEntityManagerFactory("first_shop").createEntityManager();
 
 		SpringApplication.run(ShopApplication.class, args);
-		System.out.println( "----------------------- entityManagerFactory: " +entityManagerFactory.toString());
 
-//		DaoContragentsImpl ttt = new DaoContragentsImpl( entM);
-		TypedQuery typQ = entM.createQuery("SELECT p FROM EntityContragents p" , EntityContragents.class);
-//WHERE 1=1 AND (:id is null OR p.id = :id) AND (:Name IS NULL OR p.Name LIKE %:Name%)
-		//.setParameter("custName", name)
-		System.out.println( "sdsjbdfljksdnfljksndfljksdnfsjk --------------------------------------- 2");
-		int offset = 2;;
-		int limit = 3;;
-		typQ.setFirstResult(offset);
-		typQ.setMaxResults(limit);
-		List arrayList = typQ.getResultList();
-		arrayList.get(0).toString();
-		System.out.println(arrayList);
-		for( Object ttt: arrayList  ){
-			System.out.println( ttt.toString());
-			System.out.println( ttt.getClass());
-//			System.out.println( ttt.toString());
-//			System.out.println( ttt.toString());
+		/*TypedQuery typQ = entManager.createQuery(SQL_SELECT_ANY , EntityContragents.class)
+		        .setParameter("Name", "OO")
+				.setParameter("id", null);*/
+
+		Query qry = entManager.createQuery(SQL_SELECT_ANY /*,EntityContragents.class*/)
+				.setParameter("Name", null)
+				.setParameter("id", null);
+
+		int offset = 2;
+		int limit = 3;
+		qry.setFirstResult(offset);
+		qry.setMaxResults(limit);
+		List arrayList = qry.getResultList();
+
+		//arrayList.get(0).toString();
+		System.out.println("-----------------------------------------!!!!!!!!!!!!" +arrayList.size());
+
+		for( Object ttt: arrayList  ) {
+			System.out.println(ttt.toString());
+			System.out.println(ttt.getClass());
 		}
+//		DaoContragentsImpl ttt = new DaoContragentsImpl( entM);
+//			System.out.println( ttt.toString());
+//			System.out.println( ttt.toString());
 //		ttt.findByAny(3, 2, null, null);
-
 	}
+
 }

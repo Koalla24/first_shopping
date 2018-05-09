@@ -2,6 +2,7 @@ package kaa.shop.Repository;
 
 import javafx.application.Application;
 import kaa.shop.Domen.EntityContragents;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -14,8 +15,6 @@ import java.util.ArrayList;
 
 public class DaoContragentsImpl {
 
-    @
-
     private EntityManager entM;
 
     public void DaoContragentsImpl( EntityManager pEntM){
@@ -24,7 +23,7 @@ public class DaoContragentsImpl {
 
     public ArrayList<EntityContragents> findByAny( int limit , int offset, String pId,  String pName) {
 
-        System.out.println( "----------------------------------- entM: " +entM.toString());
+        EntityManager entManager = Persistence.createEntityManagerFactory("first_shop").createEntityManager();
 
         //Query typQ = entM.createQuery("SELECT p FROM EntityContragents p" ); /*, EntityContragents.class*/
         TypedQuery typQ = entM.createQuery("SELECT p FROM EntityContragents p" , EntityContragents.class);
