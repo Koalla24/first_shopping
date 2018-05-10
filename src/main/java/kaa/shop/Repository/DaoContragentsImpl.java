@@ -1,65 +1,48 @@
 package kaa.shop.Repository;
 
-import javafx.application.Application;
 import kaa.shop.Domen.EntityContragents;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
-//import javax.persistence.*;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.ArrayList;
+
 
 public class DaoContragentsImpl {
 
-    private EntityManager entM;
+    private static String SQL_SELECT_ANY = "SELECT p FROM EntityContragents p WHERE 1=1 AND (:id is null OR p.id = :id) AND (:Name is null OR p.Name LIKE :Name)";
 
-    public void DaoContragentsImpl( EntityManager pEntM){
-        this.entM = pEntM;
+    public void DaoContragentsImpl(){
     }
 
-    public ArrayList<EntityContragents> findByAny( int limit , int offset, String pId,  String pName) {
+    public ArrayList<EntityContragents> findByAny( int offset , int limit, String pId,  String pName, EntityManager entManager) {
 
-        EntityManager entManager = Persistence.createEntityManagerFactory("first_shop").createEntityManager();
+        Long newId = null;
+        String newName = null;
 
-        //Query typQ = entM.createQuery("SELECT p FROM EntityContragents p" ); /*, EntityContragents.class*/
-        TypedQuery typQ = entM.createQuery("SELECT p FROM EntityContragents p" , EntityContragents.class);
-//WHERE 1=1 AND (:id is null OR p.id = :id) AND (:Name IS NULL OR p.Name LIKE %:Name%)
-        //.setParameter("custName", name)
-        System.out.println( "sdsjbdfljksdnfljksndfljksdnfsjk --------------------------------------- 2");
-
-        typQ.setFirstResult(offset);
-        typQ.setMaxResults(limit);
-        ArrayList<EntityContragents> arrEntContr = (ArrayList<EntityContragents>) typQ.getResultList();
-
-        for( EntityContragents ttt: arrEntContr  ){
-            System.out.println( ttt);
-        }
-
-        return arrEntContr;
-
-        /*Long newId = null;%
-        String newName = pName;
-
-        if(pId.trim().length() == 0) newId = null;
-        else {
+        if( pId != null && pId.trim().length() > 0)
                try {
                      newId = Long.valueOf(pId);
                      System.out.println(pId);
                } catch (NumberFormatException e) {
-                     System.err.println("Неверный формат строки!");
+                     System.err.println("Введено не число. Неверный формат строки!");
                      return null;
                }
-        };
 
-        if(pName.trim().length() == 0) newName = null;
+        if(pName != null && pName.trim().length() > 0) newName = pName;
 
-        List<EntityContragents> dc = daoContragents.findByAny( newId, newName);
-        return dc;*/
+        //EntityManager entManager = Persistence.createEntityManagerFactory("first_shop").createEntityManager();
+
+        Query qry = entManager.createQuery(SQL_SELECT_ANY)
+                .setParameter("Name", newName)
+                .setParameter("id", newId)
+                .setFirstResult(offset)
+                .setMaxResults(limit);
+
+        ArrayList<EntityContragents> arrayList = (ArrayList<EntityContragents>)qry.getResultList();
+
+        /*System.out.println( "!!!!! ----------------------------------------------- !!!! : " +arrayList.size());
+        for( EntityContragents ttt: arrayList  ){
+            System.out.println( ttt.toString());
+        }*/
+        return arrayList;
     };
-
 
 }

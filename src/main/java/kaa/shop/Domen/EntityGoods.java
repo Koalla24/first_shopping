@@ -1,15 +1,18 @@
 package kaa.shop.Domen;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 @Table(name = "goods")
+@Immutable
 public class EntityGoods {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 

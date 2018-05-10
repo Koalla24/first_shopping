@@ -1,5 +1,7 @@
 package kaa.shop.Domen;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -7,10 +9,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "sales_header")
+@Immutable
 public class EntitySalesHeader {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
