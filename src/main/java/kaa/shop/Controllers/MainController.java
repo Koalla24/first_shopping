@@ -4,10 +4,12 @@ package kaa.shop.Controllers;
 import kaa.shop.Domen.EntityContragents;
 import kaa.shop.Repository.DaoContragentsImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,7 +22,8 @@ public class MainController {
     EntityManager entManager;
 
     @RequestMapping("/")
-    public String indexHTML() {
+    public String indexHTML(Model mdl) {
+        //mdl.addAllAttributes();
         return "index";
     }
 
